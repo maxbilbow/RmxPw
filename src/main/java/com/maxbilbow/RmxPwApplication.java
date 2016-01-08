@@ -3,16 +3,17 @@ package com.maxbilbow;
 import click.rmx.web.Browser;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.ApplicationContext;
 
 @SpringBootApplication
-@ComponentScan
+//@EnableAutoConfiguration
 public class RmxPwApplication {
 
 
 	public static void main(String[] args) {
 
-		SpringApplication.run(RmxPwApplication.class, args);
+		ApplicationContext context = SpringApplication.run(RmxPwApplication.class, args);
+		System.setProperty("server.port",context.getEnvironment().getProperty("server.port"));
 		new Browser().launch();
 	}
 }
