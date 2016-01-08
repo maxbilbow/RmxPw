@@ -1,7 +1,10 @@
-package com.maxbilbow.model;
+package com.maxbilbow.model.player;
+
+import com.maxbilbow.model.campaign.Campaign;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 /**
  * Created by Max on 08/01/2016.
@@ -35,6 +38,17 @@ public class User {
     @Transient
     private Object profile;
 
+    @OneToOne
+    private Reputation reputation;
+
+    /**
+     * A user can only manage one campaign at a time (perhaps). This is the campaign history
+     */
+    @OneToMany
+    private List<Campaign> campaignHistory;
+
+    @OneToOne
+    private Campaign activeCampaign;
 
     public String getPassword()
     {
@@ -64,5 +78,35 @@ public class User {
     public void setId(Long id)
     {
         this.id = id;
+    }
+
+    public List<Campaign> getCampaignHistory()
+    {
+        return campaignHistory;
+    }
+
+    public void setCampaignHistory(List<Campaign> campaignHistory)
+    {
+        this.campaignHistory = campaignHistory;
+    }
+
+    public Campaign getActiveCampaign()
+    {
+        return activeCampaign;
+    }
+
+    public void setActiveCampaign(Campaign activeCampaign)
+    {
+        this.activeCampaign = activeCampaign;
+    }
+
+    public Reputation getReputation()
+    {
+        return reputation;
+    }
+
+    public void setReputation(Reputation reputation)
+    {
+        this.reputation = reputation;
     }
 }
