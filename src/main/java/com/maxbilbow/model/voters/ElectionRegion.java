@@ -6,7 +6,7 @@ import javax.persistence.*;
  * Created by Max on 08/01/2016.
  */
 @Entity
-public class CampaignRegion {
+public class ElectionRegion {
 
     @Id
     @GeneratedValue
@@ -18,5 +18,5 @@ public class CampaignRegion {
      * Nullable if has no parent region
      */
     @ManyToOne
-    private CampaignRegion parentRegion;
+    private ElectionRegion parentRegion;
 }

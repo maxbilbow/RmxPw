@@ -14,7 +14,7 @@ public class Electorate {
     private Long id;
 
     @OneToOne
-    private CampaignRegion region;
+    private ElectionRegion region;
 
     @OneToMany
     private List<SocialClass> socialClasses;

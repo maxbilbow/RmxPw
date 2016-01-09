@@ -30,7 +30,10 @@ public class Candidate {
     /**
      * Null if this is a new candidate
      */
-    private CampaignScope currentPosition;
+    private ElectionScope currentPosition;
+
+    @ManyToOne
+    private Election campaign;
 
     @Range(min = 0, max = 1)
     private Float left;

@@ -3,7 +3,7 @@ package com.maxbilbow.model.campaign;
 /**
  * Created by Max on 08/01/2016.
  */
-public enum CampaignScope {
+public enum ElectionScope {
 
     /**
      * National campaigns will influence local campaigns more than vice-versa
