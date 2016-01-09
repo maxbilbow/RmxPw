@@ -1,5 +1,6 @@
 package com.maxbilbow.model.campaign;
 
+import com.maxbilbow.model.politics.PoliticalParty;
 import org.hibernate.validator.constraints.Range;
 
 import javax.persistence.Entity;
@@ -24,6 +25,9 @@ public class Candidate {
     @NotNull
     private String name;
 
+    /**
+     * Can be null if independent.
+     */
     @ManyToOne
     private PoliticalParty politicalParty;
 
@@ -32,8 +36,11 @@ public class Candidate {
      */
     private ElectionScope currentPosition;
 
+    /**
+     * Current current election that this candidate is involved in
+     */
     @ManyToOne
-    private Election campaign;
+    private Election election;
 
     @Range(min = 0, max = 1)
     private Float left;

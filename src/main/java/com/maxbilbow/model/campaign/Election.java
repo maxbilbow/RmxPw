@@ -1,7 +1,7 @@
 package com.maxbilbow.model.campaign;
 
-import com.maxbilbow.model.voters.ElectionRegion;
-import com.maxbilbow.model.voters.Electorate;
+import com.maxbilbow.model.issues.Issue;
+import com.maxbilbow.model.politics.ElectionRegion;
 import org.hibernate.validator.constraints.Range;
 
 import javax.persistence.*;
@@ -25,23 +25,14 @@ public class Election {
     @Range(min = 0, max = 1)
     private Float percentageOfVote;
 
-    @OneToMany
-    private List<Issue> issues;
-
     @OneToOne
     private ElectionRegion electionRegion;
 
     private ElectionScope electionScope;
 
-    @OneToOne
-    private Electorate electorate;
-
-    @Range(min = 0,max = 5)
-    private Integer rating;
-
     @OneToMany
     private List<Candidate> candidates;
 
-
-
+    @Transient
+    private List<Issue> issues;
 }

@@ -1,6 +1,6 @@
 package com.maxbilbow.repository;
 
-import com.maxbilbow.model.campaign.Issue;
+import com.maxbilbow.model.issues.Issue;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

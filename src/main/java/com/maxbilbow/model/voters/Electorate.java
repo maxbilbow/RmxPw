@@ -1,6 +1,9 @@
 package com.maxbilbow.model.voters;
 
+import com.maxbilbow.model.politics.ElectionRegion;
+
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -13,13 +16,29 @@ public class Electorate {
     @GeneratedValue
     private Long id;
 
-    @OneToOne
-    private ElectionRegion region;
+    @Transient
+    private List<VoterGroup> allSocialClasses;
 
     @OneToMany
-    private List<SocialClass> socialClasses;
+    private List<VoterGroup> socialClasses;
 
-    private Float medianIncome, meanIncome, maxIncome, minIncome;
+    @OneToOne
+    private ElectionRegion electionRegion;
 
-
+    /**
+     *
+     * @return All social classes of regions below this one or, if a base level, this electorate's social classes.
+     */
+    public List<VoterGroup> getAllSocialClasses()
+    {
+        if (allSocialClasses == null)
+            allSocialClasses = new ArrayList<>();
+        if (allSocialClasses.isEmpty()) {
+            allSocialClasses.addAll(socialClasses);
+            electionRegion.getSubRegions().forEach(r->
+                allSocialClasses.addAll(r.getElectorate().getAllSocialClasses())
+            );
+        }
+        return allSocialClasses;
+    }
 }
