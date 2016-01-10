@@ -11,13 +11,13 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
+import javax.validation.Valid;
 import java.util.Arrays;
 
 /**
  * Created by Max on 08/01/2016.
  */
 @Controller
-@RequestMapping("/")
 @SessionAttributes("user")
 public class WelcomeController {
 
@@ -28,7 +28,7 @@ public class WelcomeController {
     @Resource
     private UserRepository repository;
 
-    @RequestMapping(method = RequestMethod.GET)
+    @RequestMapping(value = "/",method = RequestMethod.GET)
     public ModelAndView get(ModelAndView modelAndView)
     {
         modelAndView.setViewName("welcome");
@@ -37,20 +37,23 @@ public class WelcomeController {
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public ModelAndView registerNewUser(ModelAndView modelAndView,
-                                        User user,
+                                        @Valid User user,
                                         BindingResult result)
     {
         modelAndView.setViewName("reg");
+        modelAndView.addObject("errors",new String[0]);
         if (result.hasErrors()) {
             logger.warn(result);
             modelAndView.addObject("errors",result.getAllErrors());
             return modelAndView;
         }
 
-        if (user == null) {
+        if (user == null || user.getUsername() == null || user.getPassword() == null) {
             modelAndView.addObject("errors", Arrays.asList("playerCredentials was null"));
             return modelAndView;
         }
+
+
 
         if (repository.findOne(user.getUsername()) == null)
             repository.save(this.user = user);
