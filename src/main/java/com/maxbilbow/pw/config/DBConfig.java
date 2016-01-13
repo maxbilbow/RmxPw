@@ -38,7 +38,7 @@ public class DBConfig implements DatabaseConfig {//}, TransactionManagementConfi
 
     final Properties additionalProperties() {
         final Properties hibernateProperties = new Properties();//TODO change to create-drop or add config options
-        hibernateProperties.setProperty("hibernate.hbm2ddl.auto", false ? "update" : "create-drop");
+        hibernateProperties.setProperty("hibernate.hbm2ddl.auto", true ? "update" : "create-drop");
         hibernateProperties.setProperty("hibernate.dialect", getDialect());
         hibernateProperties.setProperty("hibernate.globally_quoted_identifiers", "true");
         hibernateProperties.setProperty("autoReconnect","true");
