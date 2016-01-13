@@ -5,13 +5,13 @@ import com.maxbilbow.pw.repository.UserRepository;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
-import javax.validation.Valid;
 import java.util.Arrays;
 
 /**
@@ -31,13 +31,16 @@ public class WelcomeController {
     @RequestMapping(value = "/",method = RequestMethod.GET)
     public ModelAndView get(ModelAndView modelAndView)
     {
+        if (user == null)
+            user = new User();
+        modelAndView.addObject("user",user);
         modelAndView.setViewName("welcome");
         return modelAndView;
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public ModelAndView registerNewUser(ModelAndView modelAndView,
-                                        @Valid User user,
+                                        @ModelAttribute User user,
                                         BindingResult result)
     {
         modelAndView.setViewName("reg");
