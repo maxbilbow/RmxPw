@@ -2,11 +2,9 @@ package com.maxbilbow.pw.dao;
 
 import com.maxbilbow.pw.model.player.Player;
 import com.maxbilbow.pw.model.player.User;
-import com.maxbilbow.pw.repository.IssueRepository;
-import com.maxbilbow.pw.repository.campaign.CampaingRepository;
+import com.maxbilbow.pw.repository.player.CampaingRepository;
 import com.maxbilbow.pw.repository.player.PlayerRepository;
 import com.maxbilbow.pw.repository.player.ReputationRepository;
-import com.maxbilbow.pw.repository.player.UserRepository;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,18 +16,12 @@ import java.util.List;
  * Created by Max on 19/01/2016.
  */
 @Service
-public class CampaignService {
+public class PlayerService {
 
     private Logger logger = Logger.getLogger(getClass());
 
     @Resource
-    private UserRepository userRepository;
-
-    @Resource
     private CampaingRepository campaingRepository;
-
-    @Resource
-    private IssueRepository issueRepository;
 
     @Resource
     private PlayerRepository playerRepository;

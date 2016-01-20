@@ -1,7 +1,5 @@
 package com.maxbilbow.pw.model.player;
 
-import com.maxbilbow.pw.model.campaign.Campaign;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;

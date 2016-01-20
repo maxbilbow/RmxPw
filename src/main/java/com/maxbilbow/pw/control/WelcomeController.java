@@ -96,7 +96,7 @@ public class WelcomeController {
         this.user = user;
 //        repository.save(user);
 
-        return "redirect:/campaign";
+        return "redirect:/player";
     }
 
 }

@@ -1,8 +1,8 @@
 package com.maxbilbow.pw.control;
 
 import com.maxbilbow.pw.dao.PlayerService;
-import com.maxbilbow.pw.model.player.Campaign;
 import com.maxbilbow.pw.model.player.Player;
+import com.maxbilbow.pw.model.player.User;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,15 +13,14 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
- * Created by Max on 19/01/2016.
+ * Created by Max on 20/01/2016.
  */
 @Controller
-@RequestMapping("/campaign")
+@RequestMapping("/player")
 @SessionAttributes({"user", "player"})
-public class CampaignController {
+public class PlayerController {
 
-
-    Campaign campaign;
+    Player player;
 
     @Autowired
     private PlayerService service;
@@ -30,22 +29,22 @@ public class CampaignController {
 
     @RequestMapping(method = RequestMethod.GET)
     public ModelAndView start(ModelAndView modelAndView,
-                              @ModelAttribute Player player)
+                              @ModelAttribute User user)
     {
-        if (player == null) {
-            logger.warn("player was NULL");
+        if (user == null) {
+            logger.warn("User was NULL");
             modelAndView.setViewName("welcome");
             return modelAndView;
         }
 
-        logger.info(player + " is logged in");
+        logger.info(user + " is logged in");
 //        modelAndView.addObject("user",user);
 
-        if (campaign == null)
-            campaign = player.getActiveCampaign();
+        if (player == null)
+            player = service.getPlayer(user);
 
-        modelAndView.addObject("campaign", campaign);
-        modelAndView.setViewName("campaign");
+        modelAndView.addObject("player", player);
+        modelAndView.setViewName("player");
         return modelAndView;
     }
 }

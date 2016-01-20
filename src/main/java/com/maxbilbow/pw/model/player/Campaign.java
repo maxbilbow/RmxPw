@@ -1,5 +1,7 @@
-package com.maxbilbow.pw.model.campaign;
+package com.maxbilbow.pw.model.player;
 
+import com.maxbilbow.pw.model.campaign.Candidate;
+import com.maxbilbow.pw.model.campaign.Election;
 import com.maxbilbow.pw.model.issues.Issue;
 import org.hibernate.validator.constraints.Range;
 
