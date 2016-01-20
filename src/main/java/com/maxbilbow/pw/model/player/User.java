@@ -36,6 +36,8 @@ public class User {
     @NotEmpty
     private String password;
 
+//    @OneToOne
+//    private Game game;
 
     public String getUsername()
     {
@@ -55,6 +57,12 @@ public class User {
     public void setPassword(String password)
     {
         this.password = password;
+    }
+
+    @Override
+    public String toString()
+    {
+        return "User: " + username;
     }
 
 }

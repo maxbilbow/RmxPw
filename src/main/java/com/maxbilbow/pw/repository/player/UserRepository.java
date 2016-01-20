@@ -1,4 +1,4 @@
-package com.maxbilbow.pw.repository;
+package com.maxbilbow.pw.repository.player;
 
 import com.maxbilbow.pw.model.player.User;
 import org.springframework.data.jpa.repository.JpaRepository;

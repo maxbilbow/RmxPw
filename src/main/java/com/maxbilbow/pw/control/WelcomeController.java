@@ -1,7 +1,7 @@
 package com.maxbilbow.pw.control;
 
 import com.maxbilbow.pw.model.player.User;
-import com.maxbilbow.pw.repository.UserRepository;
+import com.maxbilbow.pw.repository.player.UserRepository;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -69,21 +69,21 @@ public class WelcomeController {
         return modelAndView;
     }
 
-    @RequestMapping(value = "/log-in",method = RequestMethod.POST)
-    public ModelAndView logIn(ModelAndView modelAndView,
-                                        User user,
+    @RequestMapping(value = "/login",method = RequestMethod.POST)
+    public String logIn(ModelAndView modelAndView,
+                                        @ModelAttribute User user,
                                         BindingResult result)
     {
-        modelAndView.setViewName("log-in");
+        modelAndView.setViewName("campaign");
         if (result.hasErrors()) {
             logger.warn(result);
             modelAndView.addObject("errors",result.getAllErrors());
-            return modelAndView;
+            return "error";
         }
 
         if (user == null) {
             modelAndView.addObject("errors", Arrays.asList("user was null"));
-            return modelAndView;
+            return "error";
         }
 
 
@@ -93,9 +93,10 @@ public class WelcomeController {
         else
             modelAndView.addObject("loggedIn",false);
 
-        repository.save(user);
+        this.user = user;
+//        repository.save(user);
 
-        return modelAndView;
+        return "redirect:/campaign";
     }
 
 }

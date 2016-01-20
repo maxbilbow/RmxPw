@@ -4,6 +4,7 @@ import com.maxbilbow.pw.model.campaign.Campaign;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -37,6 +38,15 @@ public class Player {
     @Column(unique = true, nullable = false)
     private String campaingManagerName;
 
+    public Player()
+    {
+        this.campaingManagerName = "Bob Mills";
+    }
+    public Player(User user)
+    {
+        this.campaingManagerName = user.getUsername();
+    }
+
     /**
      * Whatever for now. This may link the user to their gameplay?
      * This could be a descriptive bio as seen on nationstates.
@@ -46,16 +56,85 @@ public class Player {
     private String profile;
 
     @OneToOne
-    private Reputation reputation;
+    private Reputation reputation = new Reputation();
 
     /**
      * A user can only manage one campaign at a time (perhaps). This is the campaign history
      */
     @OneToMany
-    private List<Campaign> campaignHistory;
+    private List<Campaign> campaignHistory = new ArrayList<>();
 
     @OneToOne
-    private Campaign activeCampaign;
+    private Campaign activeCampaign = new Campaign();
 
 
+    public Long getId()
+    {
+        return id;
+    }
+
+    public void setId(Long id)
+    {
+        this.id = id;
+    }
+
+    public User getUser()
+    {
+        return user;
+    }
+
+    public void setUser(User user)
+    {
+        this.user = user;
+    }
+
+    public String getCampaingManagerName()
+    {
+        return campaingManagerName;
+    }
+
+    public void setCampaingManagerName(String campaingManagerName)
+    {
+        this.campaingManagerName = campaingManagerName;
+    }
+
+    public String getProfile()
+    {
+        return profile;
+    }
+
+    public void setProfile(String profile)
+    {
+        this.profile = profile;
+    }
+
+    public Reputation getReputation()
+    {
+        return reputation;
+    }
+
+    public void setReputation(Reputation reputation)
+    {
+        this.reputation = reputation;
+    }
+
+    public List<Campaign> getCampaignHistory()
+    {
+        return campaignHistory;
+    }
+
+    public void setCampaignHistory(List<Campaign> campaignHistory)
+    {
+        this.campaignHistory = campaignHistory;
+    }
+
+    public Campaign getActiveCampaign()
+    {
+        return activeCampaign;
+    }
+
+    public void setActiveCampaign(Campaign activeCampaign)
+    {
+        this.activeCampaign = activeCampaign;
+    }
 }

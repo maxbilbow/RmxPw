@@ -23,7 +23,7 @@ public class Candidate {
      * This will have to be auto generated
      */
     @NotNull
-    private String name;
+    private String name = "Bob";
 
     /**
      * Can be null if independent.
@@ -47,4 +47,74 @@ public class Candidate {
 
     @Range(min = 0, max = 1)
     private Float right;
+
+    public String getName()
+    {
+        return name;
+    }
+
+    public void setName(String name)
+    {
+        this.name = name;
+    }
+
+    public PoliticalParty getPoliticalParty()
+    {
+        return politicalParty;
+    }
+
+    public void setPoliticalParty(PoliticalParty politicalParty)
+    {
+        this.politicalParty = politicalParty;
+    }
+
+    public ElectionScope getCurrentPosition()
+    {
+        return currentPosition;
+    }
+
+    public void setCurrentPosition(ElectionScope currentPosition)
+    {
+        this.currentPosition = currentPosition;
+    }
+
+    public Election getElection()
+    {
+        return election;
+    }
+
+    public void setElection(Election election)
+    {
+        this.election = election;
+    }
+
+    public Float getLeft()
+    {
+        return left;
+    }
+
+    public void setLeft(Float left)
+    {
+        this.left = left;
+    }
+
+    public Float getRight()
+    {
+        return right;
+    }
+
+    public void setRight(Float right)
+    {
+        this.right = right;
+    }
+
+    public Long getId()
+    {
+        return id;
+    }
+
+    public void setId(Long id)
+    {
+        this.id = id;
+    }
 }

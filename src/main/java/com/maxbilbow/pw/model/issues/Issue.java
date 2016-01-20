@@ -16,7 +16,7 @@ public class Issue  {
     @NotNull
     private String name;
 
-    @Column(columnDefinition = "text")
+//    @Column(columnDefinition = "varchar(1000)")
     private String description;
 
     /**
@@ -26,4 +26,43 @@ public class Issue  {
     @OneToOne
     private IssueImportance issueImportance;
 
+    public Long getId()
+    {
+        return id;
+    }
+
+    public void setId(Long id)
+    {
+        this.id = id;
+    }
+
+    public String getName()
+    {
+        return name;
+    }
+
+    public void setName(String name)
+    {
+        this.name = name;
+    }
+
+    public String getDescription()
+    {
+        return description;
+    }
+
+    public void setDescription(String description)
+    {
+        this.description = description;
+    }
+
+    public IssueImportance getIssueImportance()
+    {
+        return issueImportance;
+    }
+
+    public void setIssueImportance(IssueImportance issueImportance)
+    {
+        this.issueImportance = issueImportance;
+    }
 }

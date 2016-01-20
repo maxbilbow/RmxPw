@@ -1,0 +1,3 @@
+
+#utilisoft.radp.version=${project.version}
+#logging.file=./logs/log-${utilisoft.radp.version}-${timestamp}.txt
