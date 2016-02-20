@@ -47,6 +47,7 @@ public class ElectionBallotImpl extends Generator implements ElectionBallot
     result.setSpoiledBallots(0);
     result.setVoteShare(candidates);
     result.setWinner(candidates);
+    result.setElectoate(mElectorate);
     return result;
   }
 

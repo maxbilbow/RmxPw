@@ -1,6 +1,8 @@
 package com.maxbilbow.pw.domain.ballot;
 
+import click.rmx.debug.ObjectInspector;
 import com.maxbilbow.pw.domain.campaign.Candidate;
+import com.maxbilbow.pw.domain.voters.Electorate;
 import org.joda.time.DateTime;
 
 import javax.persistence.*;
@@ -17,6 +19,9 @@ public class ElectionResult
   private DateTime mBallotDay;
 
   private Candidate mWinner;
+
+
+  private Electorate mElectoate;
 
   @OneToOne
   @Column
@@ -64,6 +69,7 @@ public class ElectionResult
   }
 
   private int mSpoiledBallots =1;
+
   @Transient
   public String getReport()
   {
@@ -74,7 +80,12 @@ public class ElectionResult
     getVoteShare().forEach((aCandidate, aInteger) ->
       result[0] += aCandidate.getName() + ": " +aInteger + " votes ("+(aInteger*100/totalVotes[0])+"%)\n");
     result[0] += "Winner: " + mWinner.getName() + " for the " + mWinner.getPoliticalParty() +
-            " with " + mVoteShare.get(mWinner) + " votes out of " + totalVotes[0];
+            " with " + mVoteShare.get(mWinner) + " votes out of " + totalVotes[0] + "\n\n";
+
+    result[0] += new ObjectInspector().stringify("On Issues: "+ mWinner.getIssueImportance().getAll()) + "\n";
+    mElectoate.getAllSocialClasses().forEach(e->
+            result[0]+="\n -> Vs Issues: " + new ObjectInspector().stringify(e.getIssueImportance().getAll())
+    );
     return result[0];
   }
 
@@ -95,5 +106,15 @@ public class ElectionResult
       }
     }
     mWinner = winner;
+  }
+
+  public Electorate getElectoate()
+  {
+    return mElectoate;
+  }
+
+  public void setElectoate(Electorate aElectorate)
+  {
+    mElectoate = aElectorate;
   }
 }
