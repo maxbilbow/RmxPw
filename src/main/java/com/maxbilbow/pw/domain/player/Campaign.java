@@ -1,23 +1,21 @@
-package com.maxbilbow.pw.model.player;
+package com.maxbilbow.pw.domain.player;
 
-import com.maxbilbow.pw.model.campaign.Candidate;
-import com.maxbilbow.pw.model.campaign.Election;
-import com.maxbilbow.pw.model.issues.Issue;
+import com.maxbilbow.pw.domain.GenericDomain;
+import com.maxbilbow.pw.domain.campaign.Candidate;
+import com.maxbilbow.pw.domain.campaign.Election;
+import com.maxbilbow.pw.domain.issues.IssueImportance;
 import org.hibernate.validator.constraints.Range;
 
-import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
+import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
 /**
  * Created by Max on 08/01/2016.
  */
 @Entity
-public class Campaign {
-
-    @Id
-    @GeneratedValue
-    private Long id;
+public class Campaign extends GenericDomain<Long>
+{
 
     @ManyToOne
     private Election election;
@@ -29,24 +27,16 @@ public class Campaign {
      * These are specific issues that a campaign is based around.
      * A shorter list may inspire less people but may have a greater effect on one specific group.
      */
-    @OneToMany
-    private List<Issue> campaignIssues = new ArrayList<>();
+    @OneToOne
+    private IssueImportance mCampaignIssues;
+
+
 
     /**
      * How well is or did this campaign go.
      */
     @Range(min = 0,max = 5)
     private Integer rating;
-
-    public Long getId()
-    {
-        return id;
-    }
-
-    public void setId(Long id)
-    {
-        this.id = id;
-    }
 
     public Election getElection()
     {
@@ -68,14 +58,14 @@ public class Campaign {
         this.candidate = candidate;
     }
 
-    public List<Issue> getCampaignIssues()
+    public IssueImportance getCampaignIssues()
     {
-        return campaignIssues;
+        return mCampaignIssues;
     }
 
-    public void setCampaignIssues(List<Issue> campaignIssues)
+    public void setCampaignIssues(IssueImportance aCmpaignIssues)
     {
-        this.campaignIssues = campaignIssues;
+        mCampaignIssues = aCmpaignIssues;
     }
 
     public Integer getRating()
@@ -87,4 +77,13 @@ public class Campaign {
     {
         this.rating = rating;
     }
+
+    public static Campaign mock()
+    {
+        Campaign camp = new Campaign();
+        camp.mCampaignIssues = IssueImportance.mock();
+        return camp;
+    }
+
+
 }

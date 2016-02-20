@@ -58,7 +58,7 @@ public class DBConfig {//implements DatabaseConfig {//}, TransactionManagementCo
     public LocalContainerEntityManagerFactoryBean entityManagerFactory(DataSource dataSource, AppProperties properties) {
         final LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
         em.setDataSource(dataSource);
-        em.setPackagesToScan(new String[] { "com.maxbilbow.pw.model" });
+        em.setPackagesToScan(new String[] { "com.maxbilbow.pw.domain" });
 
         final HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
         em.setJpaVendorAdapter(vendorAdapter);

@@ -1,4 +1,4 @@
-package com.maxbilbow.pw.model.campaign;
+package com.maxbilbow.pw.domain.campaign;
 
 /**
  * Created by Max on 08/01/2016.

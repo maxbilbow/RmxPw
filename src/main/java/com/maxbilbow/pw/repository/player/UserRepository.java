@@ -1,6 +1,6 @@
 package com.maxbilbow.pw.repository.player;
 
-import com.maxbilbow.pw.model.player.User;
+import com.maxbilbow.pw.domain.player.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;

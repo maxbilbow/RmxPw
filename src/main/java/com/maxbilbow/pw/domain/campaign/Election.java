@@ -1,7 +1,8 @@
-package com.maxbilbow.pw.model.campaign;
+package com.maxbilbow.pw.domain.campaign;
 
-import com.maxbilbow.pw.model.issues.Issue;
-import com.maxbilbow.pw.model.politics.ElectionRegion;
+import com.maxbilbow.pw.domain.GenericDomain;
+import com.maxbilbow.pw.domain.issues.Issue;
+import com.maxbilbow.pw.domain.politics.ElectionRegion;
 import org.hibernate.validator.constraints.Range;
 
 import javax.persistence.*;
@@ -13,11 +14,8 @@ import java.util.List;
  * Created by Max on 08/01/2016.
  */
 @Entity
-public class Election {
-
-    @Id
-    @GeneratedValue
-    private Long id;
+public class Election extends GenericDomain<Long>
+{
 
     private boolean active;
 
@@ -37,15 +35,6 @@ public class Election {
     @Transient
     private List<Issue> issues = new ArrayList<>();
 
-    public Long getId()
-    {
-        return id;
-    }
-
-    public void setId(Long id)
-    {
-        this.id = id;
-    }
 
     public boolean isActive()
     {

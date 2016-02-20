@@ -1,6 +1,6 @@
 package com.maxbilbow.pw.repository.player;
 
-import com.maxbilbow.pw.model.player.Reputation;
+import com.maxbilbow.pw.domain.player.Reputation;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

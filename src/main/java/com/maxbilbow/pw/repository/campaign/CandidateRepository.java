@@ -1,6 +1,6 @@
 package com.maxbilbow.pw.repository.campaign;
 
-import com.maxbilbow.pw.model.campaign.Candidate;
+import com.maxbilbow.pw.domain.campaign.Candidate;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

@@ -1,6 +1,6 @@
 package com.maxbilbow.pw.repository;
 
-import com.maxbilbow.pw.model.issues.Issue;
+import com.maxbilbow.pw.domain.issues.Issue;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

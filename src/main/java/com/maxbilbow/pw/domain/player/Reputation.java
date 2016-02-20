@@ -1,4 +1,4 @@
-package com.maxbilbow.pw.model.player;
+package com.maxbilbow.pw.domain.player;
 
 import org.hibernate.validator.constraints.Range;
 

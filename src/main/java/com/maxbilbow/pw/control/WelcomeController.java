@@ -1,6 +1,6 @@
 package com.maxbilbow.pw.control;
 
-import com.maxbilbow.pw.model.player.User;
+import com.maxbilbow.pw.domain.player.User;
 import com.maxbilbow.pw.repository.player.UserRepository;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;

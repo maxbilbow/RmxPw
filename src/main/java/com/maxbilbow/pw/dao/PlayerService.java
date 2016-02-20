@@ -1,7 +1,7 @@
 package com.maxbilbow.pw.dao;
 
-import com.maxbilbow.pw.model.player.Player;
-import com.maxbilbow.pw.model.player.User;
+import com.maxbilbow.pw.domain.player.Player;
+import com.maxbilbow.pw.domain.player.User;
 import com.maxbilbow.pw.repository.player.CampaingRepository;
 import com.maxbilbow.pw.repository.player.PlayerRepository;
 import com.maxbilbow.pw.repository.player.ReputationRepository;

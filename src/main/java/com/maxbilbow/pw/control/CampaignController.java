@@ -1,8 +1,8 @@
 package com.maxbilbow.pw.control;
 
 import com.maxbilbow.pw.dao.PlayerService;
-import com.maxbilbow.pw.model.player.Campaign;
-import com.maxbilbow.pw.model.player.Player;
+import com.maxbilbow.pw.domain.player.Campaign;
+import com.maxbilbow.pw.domain.player.Player;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
