@@ -2,13 +2,17 @@ package com.maxbilbow.pw.domain.campaign;
 
 import com.maxbilbow.pw.domain.GenericDomain;
 import com.maxbilbow.pw.domain.ballot.Election;
+import com.maxbilbow.pw.domain.ballot.OpinionPoll;
 import com.maxbilbow.pw.domain.issues.Issue;
 import com.maxbilbow.pw.domain.issues.IssueImportance;
+import com.maxbilbow.pw.domain.voters.VoterGroup;
 
 import javax.persistence.*;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Max on 08/01/2016.
@@ -24,6 +28,8 @@ public class Campaign extends GenericDomain<Long>
   private List<Issue>     mCampaignIssues;
 
   private Float         mCommunicationMultiplier;
+  private Float         mStrength = 0f;
+  private Map<VoterGroup,OpinionPoll> mElectionStats;
 
   /**
    *
@@ -107,5 +113,28 @@ public class Campaign extends GenericDomain<Long>
     return camp;
   }
 
+
+  public Float getStrength()
+  {
+    return mStrength;
+  }
+
+  public void setStrength(Float aStrength)
+  {
+    mStrength = aStrength;
+  }
+
+  public void addElectionStat(VoterGroup aVoterGroup, OpinionPoll aOpinionPoll)
+  {
+    if (mElectionStats == null)
+      mElectionStats = new HashMap<>();
+    mElectionStats.put(aVoterGroup,aOpinionPoll);
+  }
+
+  @Transient
+  public Map<VoterGroup, OpinionPoll> getElectionStats()
+  {
+    return mElectionStats;
+  }
 
 }

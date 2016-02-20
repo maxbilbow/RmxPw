@@ -1,6 +1,9 @@
 package com.maxbilbow.pw.operation.math;
 
+import com.maxbilbow.pw.domain.ballot.OpinionPoll;
+
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -8,7 +11,7 @@ import java.util.List;
  */
 public class StatsService
 {
-  public float calculateMeanAverage(List<Integer> aValues)
+  public float calculateMeanAverage(Collection<Integer> aValues)
   {
     int total = 0;
     for(Integer score : aValues)
@@ -21,6 +24,10 @@ public class StatsService
 
   public Float calculateMedianAverage(List<Integer> aValues)
   {
+    if (aValues.isEmpty())
+      return 0f;
+    if (aValues.size() == 1)
+      return Float.valueOf(aValues.get(0));
     List<Integer> values = new ArrayList<>(aValues);
     values.sort(Integer::compare);
     if (aValues.size() %2 != 0)
@@ -43,5 +50,15 @@ public class StatsService
       total += Math.pow(((double)val-aMean),2);
     }
     return Math.sqrt(total);
+  }
+
+  public Float calculateMeanPollStrength(Collection<OpinionPoll> aPolls)
+  {
+    float total = 0;
+    for (OpinionPoll poll : aPolls)
+    {
+      total += poll.getStrength(false);
+    }
+    return total / aPolls.size();
   }
 }

@@ -61,7 +61,7 @@ public class OpinionPollerImpl implements OpinionPoller
     max = values.get(values.size()-1);
 
     double sd = mStatsService.calculateStandardDeviation(mean,values);
-    System.out.println("MIN: " +min + ",  MAX: "+max + ", SD: " + sd);
+//    System.out.println("MIN: " +min + ",  MAX: "+max + ", SD: " + sd);
     aPoll.setStandardDeviation(new Float(sd));
 //    );
   }

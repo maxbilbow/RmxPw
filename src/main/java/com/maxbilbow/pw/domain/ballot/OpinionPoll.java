@@ -1,10 +1,13 @@
 package com.maxbilbow.pw.domain.ballot;
 
 import com.maxbilbow.pw.domain.GenericDomain;
+import com.maxbilbow.pw.domain.voters.VoterGroup;
+import com.maxbilbow.pw.operation.Generator;
 import org.joda.time.DateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Transient;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -18,7 +21,8 @@ public class OpinionPoll extends GenericDomain<Long>
   private DateTime mPollDate = DateTime.now();
   private Map<String, Integer> mIssueScores = new HashMap<>();
   private float mMeanAverage, mMedianAverage, mStandardDeviation;
-
+  private Integer mStrength = null;
+  private VoterGroup mVoterGroup;
 
   @Column
   public DateTime getPollDate()
@@ -75,5 +79,28 @@ public class OpinionPoll extends GenericDomain<Long>
   public void setStandardDeviation(Float aStandardDeviation)
   {
     mStandardDeviation = aStandardDeviation;
+  }
+
+  @Transient
+  public int getStrength(boolean useStandardDeviation)
+  {
+    if (mStrength != null)
+      return mStrength;
+
+    float mean = getMeanAverage();
+    if (!useStandardDeviation)
+      return mStrength = (int)mean;
+
+//    float median = getMedianAverage();
+    float sd = getStandardDeviation();
+    int max = (int) (mean + sd / 2);
+    int min = (int) (mean - sd / 2);
+
+    return mStrength = Generator.randInt(min, max);
+  }
+
+  public VoterGroup getVoterGroup()
+  {
+    return mVoterGroup;
   }
 }

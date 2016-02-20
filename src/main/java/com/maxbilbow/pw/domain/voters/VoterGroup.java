@@ -65,22 +65,23 @@ public class VoterGroup extends GenericDomain<Long>
     public static List<VoterGroup> mockVoterGroupList(int size)
     {
         List<VoterGroup>voterGroups = new ArrayList<>();
+        int min = 1000/size, max = 1000000/size;
         for (int i=0;i<size;++i)
         {
-            voterGroups.add(mock());
+            voterGroups.add(mock(Generator.randInt(min,max)));
         }
         return voterGroups;
     }
 
 
-    public static VoterGroup mock()
+    public static VoterGroup mock(int size)
     {
         VoterGroup voterGroup = new VoterGroup();
         voterGroup.mIssueImportance = IssueImportance.mock();
 
         voterGroup.mIssues = Issue.mockList();
         voterGroup.mName = "Preston Central";
-        voterGroup.mVoterGroupStats = VoterGroupStats.mock();
+        voterGroup.mVoterGroupStats = VoterGroupStats.mock(size);
 
         return voterGroup;
     }

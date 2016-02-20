@@ -39,7 +39,11 @@ public class ElectionBallotImpl extends OpinionPollerImpl implements ElectionBal
     result.setVoteShare(candidates);
     result.setWinner(candidates);
     result.setElectionRegion(aElection.getElectionRegion());
-
+    aElection.getCandidates().forEach(aCandidate ->
+      aCandidate.getCampaign().setStrength(
+              mStatsService.calculateMeanPollStrength(aCandidate.getCampaign().getElectionStats().values())
+      )
+    );
     return result;
   }
 
@@ -50,7 +54,9 @@ public class ElectionBallotImpl extends OpinionPollerImpl implements ElectionBal
     int total = 0;
     final List<Voter> voters = new ArrayList();
     aCandidates.keySet().forEach(c->voters.add(new Voter(c,aVoterGroup)));
-
+    voters.forEach(aVoter -> {
+      aVoter.setOpinionPoll(pollVoters(aVoter.getVoterGroup(),aVoter.getCandidate()));
+    });
     for (int i=0;i<totalPopulation;++i)
     {
       Candidate choice = pickOneGivenVoterIntention(voters);
@@ -71,9 +77,7 @@ public class ElectionBallotImpl extends OpinionPollerImpl implements ElectionBal
   public Candidate pickOneGivenVoterIntention(List<Voter> aVoters)
   {
 
-    aVoters.forEach(aVoter -> {
-      aVoter.setOpinionPoll(pollVoters(aVoter.getVoterGroup(),aVoter.getCandidate()));
-    });
+
     aVoters.sort(Voter::compareTo);
 
     return aVoters.get(0).getCandidate();

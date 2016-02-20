@@ -17,7 +17,7 @@ public class VoterTest
   @Test
   public void compareTo() throws Exception
   {
-    VoterGroup voterGroup = VoterGroup.mock();
+    VoterGroup voterGroup = VoterGroup.mock(1);
     List<Candidate> candidates = Candidate.mockList(4);
     List<Voter> voters = new ArrayList<>();
     candidates.forEach(c->voters.add(new Voter(c, voterGroup)));

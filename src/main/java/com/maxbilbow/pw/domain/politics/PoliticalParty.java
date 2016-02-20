@@ -1,37 +1,44 @@
 package com.maxbilbow.pw.domain.politics;
 
-import javax.persistence.OneToOne;
-
 /**
  * Created by Max on 08/01/2016.
  */
 //@Entity
-public interface PoliticalParty  {
+public interface PoliticalParty
+{
 
-    /**
-     * The highest level region in which this party operates
-     * Usually national (but see SNP)
-     */
-    @OneToOne
-    ElectionRegion region();
+//  /**
+//   * The highest level region in which this party operates
+//   * Usually national (but see SNP)
+//   */
+//  @OneToOne
+//  ElectionRegion region();
 
-    String screenName();
+  String getScreenName();
 
 
-    enum UK implements PoliticalParty
+  enum UK implements PoliticalParty
+  {
+    Labour, Conservative, LiberalDemocrat("Lib Dem"), Green;
+
+    private String mScreenName;
+
+    UK()
     {
-        Labour, Conservative, LiberalDemocrat, Green;
-
-        @Override
-        public ElectionRegion region()
-        {
-            return ElectionRegion.UKLocal();
-        }
-
-        @Override
-        public String screenName()
-        {
-            return null;
-        }
+      mScreenName = name();
     }
+
+    UK(String aScreenName)
+    {
+      mScreenName = aScreenName;
+    }
+
+
+
+    @Override
+    public String getScreenName()
+    {
+      return mScreenName;
+    }
+  }
 }

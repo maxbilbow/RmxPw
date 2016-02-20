@@ -4,7 +4,7 @@ import com.maxbilbow.pw.domain.GenericDomain;
 import com.maxbilbow.pw.domain.campaign.Candidate;
 import com.maxbilbow.pw.domain.campaign.ElectionScope;
 import com.maxbilbow.pw.domain.politics.ElectionRegion;
-import com.maxbilbow.pw.domain.voters.Electorate;
+import com.maxbilbow.pw.domain.voters.VoterGroup;
 import org.joda.time.DateTime;
 
 import javax.persistence.*;
@@ -17,14 +17,15 @@ import java.util.List;
 public class Election extends GenericDomain<Long>
 {
 
-  private DateTime        mElectionDay;
-  private List<Candidate> mCandidates;
-  private ElectionScope mElectionScope;
-  private ElectionRegion mElectionRegion;
-  private Electorate mElectorate;
+  private DateTime         mElectionDay;
+  private List<Candidate>  mCandidates;
+  private ElectionScope    mElectionScope;
+  private ElectionRegion   mElectionRegion;
+  private List<VoterGroup> mElectorate;
 
 
   @OneToOne
+  @JoinColumn
   public ElectionRegion getElectionRegion()
   {
     return mElectionRegion;
@@ -38,13 +39,15 @@ public class Election extends GenericDomain<Long>
   }
 
   @OneToMany
+  @JoinColumn
   public List<Candidate> getCandidates()
   {
     return mCandidates;
   }
 
-  @ManyToOne
-  public Electorate getElectorate()
+  @OneToMany
+  @JoinColumn
+  public List<VoterGroup>  getElectorate()
   {
     return mElectorate;
   }
@@ -75,7 +78,7 @@ public class Election extends GenericDomain<Long>
     mElectionRegion = aElectionRegion;
   }
 
-  public void setElectorate(Electorate aElectorate)
+  public void setElectorate(List<VoterGroup> aElectorate)
   {
     mElectorate = aElectorate;
   }

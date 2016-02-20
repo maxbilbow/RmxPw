@@ -13,7 +13,7 @@ import java.util.Map;
 
 import static com.maxbilbow.pw.domain.type.PoliticalLeaning.PLEnum;
 import static com.maxbilbow.pw.domain.type.PoliticalLeaning.PLEnum.Left;
-import static com.maxbilbow.pw.domain.type.PoliticalLeaning.PLEnum.values;
+import static com.maxbilbow.pw.domain.type.PoliticalLeaning.PLEnum.Right;
 
 /**
  * Created by Max on 09/01/2016.
@@ -26,10 +26,12 @@ public class IssueImportance extends GenericDomain<Long>
 
   public IssueImportance()
   {
-    for (PLEnum plEnum : values())
-    {
-      mPoliticalLeaning.put(plEnum, 0);
-    }
+    mPoliticalLeaning.put(Left,0);
+    mPoliticalLeaning.put(Right,0);
+//    for (PLEnum plEnum : values())
+//    {
+//      mPoliticalLeaning.put(plEnum, 0);
+//    }
   }
 
   @Range(min = -100, max = 100)

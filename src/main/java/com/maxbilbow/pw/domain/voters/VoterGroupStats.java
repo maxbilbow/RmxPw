@@ -23,13 +23,13 @@ public class VoterGroupStats extends GenericDomain<Long>
 
   private Integer mPopulation;
 
-  public static VoterGroupStats mock()
+  public static VoterGroupStats mock(int size)
   {
     VoterGroupStats vgs = new VoterGroupStats();
     vgs.mAveragePersonalDebt = 100;
     vgs.mMeanAnnualIncome = 60000;
     vgs.mMedianAnnualIncome = 24000;
-    vgs.setPopulation((int) (Math.random()*10000000*Math.random()));
+    vgs.setPopulation(size);
     return vgs;
   }
 

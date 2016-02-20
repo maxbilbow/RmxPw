@@ -20,7 +20,7 @@ public class ElectionBallotImplTest
   public void setUp()
   {
     mElection = new Election();
-    mElection.setElectionRegion(ElectionRegion.UKLocal());
+    mElection.setElectionRegion(ElectionRegion.UKLocal(10));
     mElection.setCandidates(Candidate.mockList(PoliticalParty.UK.values().length));
   }
 

@@ -4,11 +4,14 @@ import click.rmx.util.ObjectInspector;
 import com.maxbilbow.pw.domain.GenericDomain;
 import com.maxbilbow.pw.domain.campaign.Candidate;
 import com.maxbilbow.pw.domain.politics.ElectionRegion;
-import com.maxbilbow.pw.domain.voters.Electorate;
+import com.maxbilbow.pw.domain.voters.VoterGroup;
 import org.joda.time.DateTime;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Map;
+
+//import com.maxbilbow.pw.domain.voters.Electorate;
 
 /**
  * Created by Max on 19/02/2016.
@@ -93,11 +96,14 @@ public class ElectionResult extends GenericDomain<Long>
     final String[] result = {"Election on " + getBallotDay().toString() + "\n"};
     int[] totalVotes = {mSpoiledBallots};
     getVoteShare().values().forEach(n->totalVotes[0]+=n);
-    getVoteShare().forEach((aCandidate, aInteger) ->
-      result[0] += aCandidate.getName() + ": " +aInteger + " votes ("+(aInteger*100/totalVotes[0])+"%) on "+
-                   oi.stringify(aCandidate.getIssueImportance().getAll())+"\n");
-    result[0] += "Winner: " + mWinner.getName() + " for the " + mWinner.getPoliticalParty() +
-            " with " + mVoteShare.get(mWinner) + " votes out of " + totalVotes[0] + "\n\n";
+    getVoteShare().forEach((aCandidate, aInteger) -> {
+      Float strength = aCandidate.getCampaign().getStrength();
+      result[0] += aCandidate.getName() + ": " +  +aInteger + " votes ("+(aInteger*100/totalVotes[0])+"%) " +
+                   "Strength: "+strength+", on "+
+                   oi.stringify(aCandidate.getIssueImportance().getAll())+"\n";
+    });
+    result[0] += "Winner: " + mWinner.getName() + " for the " + mWinner.getPoliticalParty().getScreenName() +
+            " party with " + mVoteShare.get(mWinner) + " votes out of " + totalVotes[0] + "\n\n";
 
     result[0] += oi.stringify("On Issues: "+ mWinner.getIssueImportance().getAll()) + "\n";
     mElectionRegion.getVoterGroups().forEach(e->
@@ -120,7 +126,7 @@ public class ElectionResult extends GenericDomain<Long>
   }
 
   @Transient
-  public Electorate getElectorate()
+  public List<VoterGroup> getElectorate()
   {
     return mElectionRegion.getElectorate();
   }

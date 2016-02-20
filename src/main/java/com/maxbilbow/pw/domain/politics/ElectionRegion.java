@@ -2,7 +2,6 @@ package com.maxbilbow.pw.domain.politics;
 
 import com.maxbilbow.pw.domain.GenericDomain;
 import com.maxbilbow.pw.domain.ballot.ElectionResult;
-import com.maxbilbow.pw.domain.voters.Electorate;
 import com.maxbilbow.pw.domain.voters.VoterGroup;
 
 import javax.persistence.*;
@@ -19,7 +18,7 @@ public class ElectionRegion extends GenericDomain<Long>{
     private String mRegionName;
     private ElectionRegion mParentRegion;
     private List<ElectionRegion> mSubRegions = new ArrayList<>();
-    private Electorate mElectorate;
+    private List<VoterGroup> mElectorate;
     private List<ElectionResult> mElectionHistory;
     private List<VoterGroup> mAllVoterGroups;
 
@@ -47,9 +46,9 @@ public class ElectionRegion extends GenericDomain<Long>{
      * If not a local region, then the electorate is either null
      * or updated with the sub-regions.
      */
-    @OneToOne
+    @OneToMany
     @JoinColumn
-    public Electorate getElectorate()
+    public List<VoterGroup> getElectorate()
     {
         return mElectorate;
     }
@@ -82,7 +81,7 @@ public class ElectionRegion extends GenericDomain<Long>{
         mSubRegions = aSubRegions;
     }
 
-    public void setElectorate(Electorate aElectorate)
+    public void setElectorate(List<VoterGroup> aElectorate)
     {
         mElectorate = aElectorate;
     }
@@ -100,12 +99,12 @@ public class ElectionRegion extends GenericDomain<Long>{
   public List<VoterGroup> getVoterGroups()
   {
     if (mSubRegions == null || mSubRegions.isEmpty())
-      return mElectorate.getVoterGroups();
+      return mElectorate;
     if (mAllVoterGroups == null)
       mAllVoterGroups = new ArrayList<>();
     if (mAllVoterGroups.isEmpty())
     {
-      mAllVoterGroups.addAll(mElectorate.getVoterGroups());
+      mAllVoterGroups.addAll(mElectorate);
       mSubRegions.forEach(aRegion-> mAllVoterGroups.addAll(aRegion.getVoterGroups()));
     }
     return mAllVoterGroups;
@@ -116,11 +115,11 @@ public class ElectionRegion extends GenericDomain<Long>{
         mElectionHistory = aElectionHistory;
     }
 
-    public static ElectionRegion UKLocal()
+    public static ElectionRegion UKLocal(int noOfGroups)
     {
       ElectionRegion region = new ElectionRegion();
       region.mRegionName = "Preston County";
-      region.mElectorate = Electorate.mockElectorate(region);
+      region.mElectorate = VoterGroup.mockVoterGroupList(noOfGroups);
       region.mElectionHistory = new ArrayList<>();
       region.mSubRegions = new ArrayList<>();
       region.mParentRegion = null;
