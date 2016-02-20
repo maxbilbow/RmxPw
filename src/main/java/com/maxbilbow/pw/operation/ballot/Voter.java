@@ -1,9 +1,11 @@
 package com.maxbilbow.pw.operation.ballot;
 
+import com.maxbilbow.pw.domain.ballot.OpinionPoll;
 import com.maxbilbow.pw.domain.campaign.Candidate;
 import com.maxbilbow.pw.domain.issues.IssueImportance;
 import com.maxbilbow.pw.domain.type.PoliticalLeaning;
 import com.maxbilbow.pw.domain.voters.VoterGroup;
+import com.maxbilbow.pw.operation.Generator;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -38,6 +40,7 @@ public class Voter implements Comparable<Voter>
     return mVoterIssues;
   }
 
+
   @Override
   public int compareTo(Voter o)
   {
@@ -47,6 +50,18 @@ public class Voter implements Comparable<Voter>
       return -1;
     return Math.random() > 0.5 ? 1 : -1;
   }
+
+  public OpinionPoll getOpinionPoll()
+  {
+    return mOpinionPoll;
+  }
+
+  public void setOpinionPoll(OpinionPoll aOpinionPoll)
+  {
+    mOpinionPoll = aOpinionPoll;
+  }
+
+
 
 
   class PLCounter
@@ -61,30 +76,25 @@ public class Voter implements Comparable<Voter>
   private final IssueImportance mVoterIssues;
   private final Map<PoliticalLeaning,PLCounter> mIssueCounter;
 
+  private OpinionPoll mOpinionPoll;
+
   public Voter(Candidate aCandidate, VoterGroup aVoterGroup)
   {
     mCandidate = aCandidate; mVoterGroup = aVoterGroup;
     mVoterIssues = aVoterGroup.getIssueImportance();
     mCampaignIssue = aCandidate.getIssueImportance();
-    mCandidateIssues = aCandidate.getCampaign().getCampaignIssues();
+    mCandidateIssues = aCandidate.getCampaign().getIssueImportance();
     mIssueCounter = new HashMap<>();
-
-  }
-
-  int mScore = 0;
-  public void scoreIssue(PoliticalLeaning aPoliticalLeaning, int aScore)
-  {
-//    mIssueCounter.get(aPoliticalLeaning).mScore += aScore;
-    mScore += aScore;
   }
 
   public int getScore()
   {
-    return mScore;
+    float mean = mOpinionPoll.getMeanAverage();
+    float median = mOpinionPoll.getMedianAverage();
+    float sd = mOpinionPoll.getStandardDeviation();
+    int max = (int) (mean + sd / 2);
+    int min = (int) (mean - sd / 2);
+    return Generator.randInt(min,max); // * mCandidate.getCampaign().getCommunicationMultiplier();
   }
 
-  public void setScore(int aScore)
-  {
-    mScore = aScore;
-  }
 }

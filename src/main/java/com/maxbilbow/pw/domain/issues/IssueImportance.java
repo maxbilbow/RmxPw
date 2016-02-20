@@ -39,16 +39,21 @@ public class IssueImportance extends GenericDomain<Long>
     return mPoliticalLeaning.get(Left);
   }
 
-
-  /**
-   * i.e. middle-class women may have a very hight score here.
-   */
-  @Range(min = -100, max = 100)
-  @Column
-  public Integer getChildren()
+  @Transient
+  public Integer get(PoliticalLeaning aPoliticalLeaning)
   {
-    return mPoliticalLeaning.get(PLEnum.Children);
+    return mPoliticalLeaning.getOrDefault(aPoliticalLeaning,0);
   }
+
+//  /**
+//   * i.e. middle-class women may have a very hight score here.
+//   */
+//  @Range(min = -100, max = 100)
+//  @Column
+//  public Integer getChildren()
+//  {
+//    return mPoliticalLeaning.get(PLEnum.Children);
+//  }
 
   public void setLeft(Integer left)
   {
@@ -104,17 +109,17 @@ public class IssueImportance extends GenericDomain<Long>
     mPoliticalLeaning.put(PLEnum.Liberty, liberty);
   }
 
-  @Range(min = -100, max = 100)
-  @Column
-  public Integer getFuture()
-  {
-    return mPoliticalLeaning.get(PLEnum.Future);
-  }
-
-  public void setFuture(Integer future)
-  {
-    mPoliticalLeaning.get(PLEnum.Future);
-  }
+//  @Range(min = -100, max = 100)
+//  @Column
+//  public Integer getFuture()
+//  {
+//    return mPoliticalLeaning.get(PLEnum.Future);
+//  }
+//
+//  public void setFuture(Integer future)
+//  {
+//    mPoliticalLeaning.get(PLEnum.Future);
+//  }
 
 
   public static IssueImportance mock()
@@ -131,5 +136,12 @@ public class IssueImportance extends GenericDomain<Long>
   public Map<PoliticalLeaning,Integer> getAll()
   {
     return mPoliticalLeaning;
+  }
+
+  public IssueImportance copy()
+  {
+    IssueImportance importance = new IssueImportance();
+    importance.mPoliticalLeaning = (HashMap<PoliticalLeaning, Integer>) mPoliticalLeaning.clone();
+    return importance;
   }
 }

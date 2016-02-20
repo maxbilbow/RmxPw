@@ -1,6 +1,7 @@
 package com.maxbilbow.pw.operation;
 
 
+import com.maxbilbow.pw.domain.ballot.Election;
 import com.maxbilbow.pw.domain.ballot.ElectionResult;
 
 /**
@@ -8,5 +9,5 @@ import com.maxbilbow.pw.domain.ballot.ElectionResult;
  */
 public interface ElectionBallot
 {
-  ElectionResult ballot();
+  ElectionResult ballot(Election aElection);
 }

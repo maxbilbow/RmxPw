@@ -10,6 +10,10 @@ echo.
 goto startApp
 
 :noJavaHome
+
+echo No Java installation exists... Install Java 1.8 or higher.
+TIMEOUT /T 30
+
 goto eof
 echo The JAVA_HOME environment variable is not defined correctly.
 echo Instead the PATH will be used to find the java executable.
@@ -29,11 +33,11 @@ set APP_ROOT=%~dp0\
 pushd "%APP_ROOT%"
 
 rem set APP_CONF_DIR=%APP_ROOT%\config
-set TIMESTAMP=%DATE:~6,4%-%DATE:~3,2%-%DATE:~0,2%-%TIME:~0,2%%TIME:~3,2%%TIME:~6,2%
+rem set TIMESTAMP=%DATE:~6,4%-%DATE:~3,2%-%DATE:~0,2%-%TIME:~0,2%%TIME:~3,2%%TIME:~6,2%
 
-set JAVA_ARGS=-DappRootDir="%APP_ROOT%" -Dtimestamp="%TIMESTAMP%"
+set JAVA_ARGS=-DappRootDir="%APP_ROOT%" -DappVersion=${project.version}
 rem set PROG_ARGS=configDir=
 
-%JAVA_EXE% %JAVA_ARGS% -jar lib\${project.artifactId}-${project.version}.jar
+%JAVA_EXE% %JAVA_ARGS% -jar ${project.artifactId}-${project.version}.jar
 
 :eof

@@ -1,27 +1,84 @@
 package com.maxbilbow.pw.domain;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import com.maxbilbow.pw.domain.issues.IssueImportance;
+import org.hibernate.annotations.Type;
+import org.joda.time.DateTime;
+
+import javax.persistence.*;
+import java.io.Serializable;
+import java.io.UnsupportedEncodingException;
 
 /**
  * Created by Max on 19/02/2016.
  */
-public abstract class GenericDomain<T>
+@MappedSuperclass
+public abstract class GenericDomain<IdType extends Number> implements Serializable
 {
-  T mId;
+  private IdType   mPk;
+  private Integer  mVersion;
+  private DateTime mLastUpdated;
 
   @Id
   @GeneratedValue
-  @Column
-  public final T getId()
+  @Column(name = "PK", nullable = false)
+  public IdType getPk()
   {
-    return mId;
+    return mPk;
   }
 
-  public final void setId(T aId)
+  public void setPk(IdType aPk)
   {
-    mId = aId;
+    mPk = aPk;
+  }
+
+  @Version
+  @Column(name = "VERSION")
+  public Integer getVersion()
+  {
+    return mVersion;
+  }
+
+  public void setVersion(Integer aVersion)
+  {
+    mVersion = aVersion;
+  }
+
+  @Transient
+  public String byteToString(byte[] aContent)
+  {
+    try
+    {
+      return new String(aContent, "UTF-8");
+    }
+    catch(UnsupportedEncodingException aEx)
+    {
+      throw new RuntimeException(aEx);
+    }
+  }
+
+  @Transient
+  public byte[] stringToByte(String aContent)
+  {
+    try
+    {
+      return aContent.getBytes("UTF-8");
+    }
+    catch(UnsupportedEncodingException aEx)
+    {
+      throw new RuntimeException(aEx);
+    }
+  }
+
+  @Column(name = "LAST_UPDATED")
+  @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
+  public DateTime getLastUpdated()
+  {
+    return mLastUpdated;
+  }
+
+  public void setLastUpdated(DateTime aLastUpdated)
+  {
+    mLastUpdated = aLastUpdated;
   }
 
 

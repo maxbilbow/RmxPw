@@ -3,8 +3,9 @@ package com.maxbilbow.pw.domain.voters;
 import com.maxbilbow.pw.domain.GenericDomain;
 import com.maxbilbow.pw.domain.politics.ElectionRegion;
 
-import javax.persistence.*;
-import java.util.ArrayList;
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import java.util.List;
 
 /**
@@ -14,58 +15,29 @@ import java.util.List;
 public class Electorate extends GenericDomain<Long>
 {
 
+    private List<VoterGroup> mVoterGroups;
 
-    @Transient
-    private List<VoterGroup> mAllSocialClasses;
-
-
-    private List<VoterGroup> mSocialClasses;
-
-    private ElectionRegion mElectoralRegion;
-
-    /**
-     *
-     * @return All social classes of regions below this one or, if a base level, this electorate's social classes.
-     */
-    @Transient
-    public List<VoterGroup> getAllSocialClasses()
-    {
-        if (mAllSocialClasses == null)
-            mAllSocialClasses = new ArrayList<>();
-        if (mAllSocialClasses.isEmpty()) {
-            mAllSocialClasses.addAll(mSocialClasses);
-            mElectoralRegion.getSubRegions().forEach(r->
-                    mAllSocialClasses.addAll(r.getElectorate().getAllSocialClasses())
-            );
-        }
-        return mAllSocialClasses;
-    }
 
     @OneToMany
-    @Column
-    public List<VoterGroup> getSocialClasses()
+    @JoinColumn
+    public List<VoterGroup> getVoterGroups()
     {
-        return mSocialClasses;
+        return mVoterGroups;
     }
 
 
-    public static Electorate mockElectorate()
+    public void setVoterGroups(List<VoterGroup> aVoterGroups)
+    {
+        mVoterGroups = aVoterGroups;
+    }
+
+    public static Electorate mockElectorate(ElectionRegion mRegion)
     {
         Electorate electorate = new Electorate();
-        electorate.mSocialClasses = VoterGroup.mockVoterGroupList(6);
-        electorate.mElectoralRegion = ElectionRegion.UKLocal();
+        electorate.mVoterGroups = VoterGroup.mockVoterGroupList(6);
         return electorate;
     }
 
-    @OneToOne
-    @Column
-    public ElectionRegion getElectoralRegion()
-    {
-        return mElectoralRegion;
-    }
 
-    public void setElectoralRegion(ElectionRegion aElectoralRegion)
-    {
-        mElectoralRegion = aElectoralRegion;
-    }
+
 }

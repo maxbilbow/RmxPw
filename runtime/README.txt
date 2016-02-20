@@ -1,4 +1,2 @@
-${project.artifactId}
-
-Version ${project.version}
+# Rapid Assurance Data Pump (RADP) Version ${project.version}
 

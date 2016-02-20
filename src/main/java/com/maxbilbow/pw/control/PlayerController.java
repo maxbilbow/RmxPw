@@ -1,6 +1,6 @@
 package com.maxbilbow.pw.control;
 
-import com.maxbilbow.pw.dao.PlayerService;
+import com.maxbilbow.pw.service.PlayerService;
 import com.maxbilbow.pw.domain.player.Player;
 import com.maxbilbow.pw.domain.player.User;
 import org.apache.log4j.Logger;

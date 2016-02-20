@@ -19,7 +19,7 @@
         <!-- include war/jar/exe files-->
         <fileSet>
             <directory>${project.build.directory}</directory>
-            <outputDirectory>/lib</outputDirectory>
+            <outputDirectory>/</outputDirectory>
             <includes>
                 <include>${project.artifactId}-${project.version}.jar</include>
             </includes>
@@ -43,20 +43,12 @@
             <outputDirectory>/</outputDirectory>
             <filtered>true</filtered>
         </file>
+
         <file>
-            <source>${basedir}/runtime/lib/version</source>
-            <outputDirectory>/lib</outputDirectory>
+            <source>${basedir}/src/main/resources/application.properties</source>
+            <outputDirectory>/config</outputDirectory>
             <filtered>true</filtered>
         </file>
-        <!--<file>-->
-            <!--<source>LICENSE.txt</source>-->
-            <!--<outputDirectory>/</outputDirectory>-->
-        <!--</file>-->
-        <!--<file>-->
-            <!--<source>NOTICE.txt</source>-->
-            <!--<outputDirectory>/</outputDirectory>-->
-            <!--<filtered>true</filtered>-->
-        <!--</file>-->
     </files>
 
 </assembly>

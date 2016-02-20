@@ -1,7 +1,9 @@
 package com.maxbilbow.pw.domain.ballot;
 
-import click.rmx.debug.ObjectInspector;
+import click.rmx.util.ObjectInspector;
+import com.maxbilbow.pw.domain.GenericDomain;
 import com.maxbilbow.pw.domain.campaign.Candidate;
+import com.maxbilbow.pw.domain.politics.ElectionRegion;
 import com.maxbilbow.pw.domain.voters.Electorate;
 import org.joda.time.DateTime;
 
@@ -12,7 +14,7 @@ import java.util.Map;
  * Created by Max on 19/02/2016.
  */
 @Entity
-public class ElectionResult
+public class ElectionResult extends GenericDomain<Long>
 {
   private Map<Candidate, Integer> mVoteShare;
 
@@ -20,10 +22,11 @@ public class ElectionResult
 
   private Candidate mWinner;
 
+  private Integer mSpoiledBallots = 0;
+  private ElectionRegion mElectionRegion;
+  private Integer mTotalVotesCast;
 
-  private Electorate mElectoate;
-
-  @OneToOne
+  @ManyToOne
   @Column
   public Candidate getWinner()
   {
@@ -43,6 +46,13 @@ public class ElectionResult
     return mVoteShare;
   }
 
+  @ManyToOne
+  @JoinColumn
+  public ElectionRegion getElectionRegion()
+  {
+    return mElectionRegion;
+  }
+
   public void setVoteShare(Map<Candidate, Integer> aVoteShare)
   {
     mVoteShare = aVoteShare;
@@ -58,7 +68,8 @@ public class ElectionResult
     mWinner = aWinner;
   }
 
-  public int getSpointBallots()
+  @Column
+  public Integer getSpoiledBallots()
   {
     return mSpoiledBallots;
   }
@@ -68,31 +79,31 @@ public class ElectionResult
     mSpoiledBallots = aSpoiledBallots;
   }
 
-  private int mSpoiledBallots =1;
+
 
   @Transient
   public String getReport()
   {
+    if (mWinner == null)
+    {
+      return "Election to be held on: " + getBallotDay();
+    }
+    final ObjectInspector oi = new ObjectInspector();
 //    new DateTimeFormatter("dd/MM/yyy");
     final String[] result = {"Election on " + getBallotDay().toString() + "\n"};
     int[] totalVotes = {mSpoiledBallots};
     getVoteShare().values().forEach(n->totalVotes[0]+=n);
     getVoteShare().forEach((aCandidate, aInteger) ->
-      result[0] += aCandidate.getName() + ": " +aInteger + " votes ("+(aInteger*100/totalVotes[0])+"%)\n");
+      result[0] += aCandidate.getName() + ": " +aInteger + " votes ("+(aInteger*100/totalVotes[0])+"%) on "+
+                   oi.stringify(aCandidate.getIssueImportance().getAll())+"\n");
     result[0] += "Winner: " + mWinner.getName() + " for the " + mWinner.getPoliticalParty() +
             " with " + mVoteShare.get(mWinner) + " votes out of " + totalVotes[0] + "\n\n";
 
-    result[0] += new ObjectInspector().stringify("On Issues: "+ mWinner.getIssueImportance().getAll()) + "\n";
-    mElectoate.getAllSocialClasses().forEach(e->
-            result[0]+="\n -> Vs Issues: " + new ObjectInspector().stringify(e.getIssueImportance().getAll())
+    result[0] += oi.stringify("On Issues: "+ mWinner.getIssueImportance().getAll()) + "\n";
+    mElectionRegion.getVoterGroups().forEach(e->
+            result[0]+="\n -> Vs Issues: " + oi.stringify(e.getIssueImportance().getAll())
     );
     return result[0];
-  }
-
-  @Override
-  public String toString()
-  {
-    return getReport();
   }
 
   public void setWinner(Map<Candidate, Integer> aVoteShare)
@@ -108,13 +119,30 @@ public class ElectionResult
     mWinner = winner;
   }
 
-  public Electorate getElectoate()
+  @Transient
+  public Electorate getElectorate()
   {
-    return mElectoate;
+    return mElectionRegion.getElectorate();
   }
 
-  public void setElectoate(Electorate aElectorate)
+  public void setTotalVotesCast(Integer aTotalVotesCast)
   {
-    mElectoate = aElectorate;
+    mTotalVotesCast = aTotalVotesCast;
+  }
+
+  public void setElectionRegion(ElectionRegion aElectionRegion)
+  {
+    mElectionRegion = aElectionRegion;
+  }
+
+  public Integer getTotalVotesCast()
+  {
+    return mTotalVotesCast;
+  }
+
+  @Override
+  public String toString()
+  {
+    return getReport();
   }
 }

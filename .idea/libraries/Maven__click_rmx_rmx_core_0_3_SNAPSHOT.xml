@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: click.rmx:rmx-core:0.3-SNAPSHOT">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/click/rmx/rmx-core/0.3-SNAPSHOT/rmx-core-0.3-20160213.155458-2.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/click/rmx/rmx-core/0.3-SNAPSHOT/rmx-core-0.3-20160213.155458-2-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/click/rmx/rmx-core/0.3-SNAPSHOT/rmx-core-0.3-20160213.155458-2-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

@@ -5,7 +5,7 @@ package com.maxbilbow.pw.domain.type;
  */
 public interface PoliticalLeaning
 {
-  String getKey();
+  String getName();
 
   String getScreenName();
 
@@ -15,9 +15,9 @@ public interface PoliticalLeaning
     Right("Right Leaning"),
     Nationalism("Nationalism"),
     Economy("Economic Performance"),
-    Liberty("Freedom and Liberty"),
-    Future("Futurism"),
-    Children("Child Focused");
+    Liberty("Freedom and Liberty");
+//    Future("Futurism"),
+//    Children("Child Focused");
 
     private String mScreenName;
 
@@ -28,7 +28,7 @@ public interface PoliticalLeaning
     }
 
     @Override
-    public String getKey()
+    public String getName()
     {
       return name();
     }
@@ -38,5 +38,7 @@ public interface PoliticalLeaning
     {
       return mScreenName;
     }
+
+
   }
 }
