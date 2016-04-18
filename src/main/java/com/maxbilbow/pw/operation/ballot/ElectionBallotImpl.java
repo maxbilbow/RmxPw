@@ -20,8 +20,6 @@ import java.util.Map;
 public class ElectionBallotImpl extends OpinionPollerImpl implements ElectionBallot
 {
 
-
-
   @Override
   public ElectionResult ballot(Election aElection)
   {
