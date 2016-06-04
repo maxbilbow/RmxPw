@@ -1,8 +1,8 @@
 package com.maxbilbow.pw.control;
 
-import com.maxbilbow.pw.domain.campaign.Campaign;
-import com.maxbilbow.pw.domain.player.Player;
-import com.maxbilbow.pw.service.PlayerService;
+import com.maxbilbow.pw.domain.Campaign;
+import com.maxbilbow.pw.domain.Player;
+import com.maxbilbow.pw.domain.service.PlayerServiceImpl;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,14 +17,14 @@ import org.springframework.web.servlet.ModelAndView;
  */
 @Controller
 @RequestMapping("/campaign")
-@SessionAttributes({"user", "player"})
+//@SessionAttributes({"user", "player"})
 public class CampaignController {
 
 
     Campaign campaign;
 
     @Autowired
-    private PlayerService service;
+    private PlayerServiceImpl service;
 
     private Logger logger = Logger.getLogger(getClass());
 

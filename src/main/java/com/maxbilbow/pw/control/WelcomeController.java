@@ -1,7 +1,7 @@
 package com.maxbilbow.pw.control;
 
-import com.maxbilbow.pw.domain.player.User;
-import com.maxbilbow.pw.repository.player.UserRepository;
+import com.maxbilbow.pw.domain.User;
+import com.maxbilbow.pw.domain.dao.player.UserRepository;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -94,7 +94,7 @@ public class WelcomeController {
             modelAndView.addObject("loggedIn",false);
 
         this.user = user;
-//        repository.save(user);
+//        dao.save(user);
 
         return "redirect:/player";
     }
