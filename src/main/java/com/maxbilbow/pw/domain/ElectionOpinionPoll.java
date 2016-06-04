@@ -2,29 +2,29 @@ package com.maxbilbow.pw.domain;
 
 import com.maxbilbow.pw.framework.Generator;
 import com.maxbilbow.pwcommon.domain.AbstractDomain;
-import org.joda.time.DateTime;
 
 import javax.persistence.Column;
-import javax.persistence.Entity;
 import javax.persistence.Transient;
+import java.time.Instant;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
 /**
  * Created by Max on 20/02/2016.
  */
-@Entity
+//@Entity
 public class ElectionOpinionPoll extends AbstractDomain<Long>
 {
 
-  private DateTime mPollDate = DateTime.now();
+  private Date                 mPollDate    = Date.from(Instant.now());
   private Map<String, Integer> mIssueScores = new HashMap<>();
   private float mMeanAverage, mMedianAverage, mStandardDeviation;
   private Integer mStrength = null;
   private VoterGroup mVoterGroup;
 
   @Column
-  public DateTime getPollDate()
+  public Date getPollDate()
   {
     return mPollDate;
   }
@@ -35,7 +35,7 @@ public class ElectionOpinionPoll extends AbstractDomain<Long>
     return mIssueScores;
   }
 
-  public void setPollDate(DateTime aPollDate)
+  public void setPollDate(Date aPollDate)
   {
     mPollDate = aPollDate;
   }

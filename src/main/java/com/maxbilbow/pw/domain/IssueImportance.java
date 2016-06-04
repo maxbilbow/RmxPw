@@ -6,7 +6,6 @@ import com.maxbilbow.pwcommon.domain.AbstractDomain;
 import org.hibernate.validator.constraints.Range;
 
 import javax.persistence.Column;
-import javax.persistence.Entity;
 import javax.persistence.Transient;
 import java.util.HashMap;
 import java.util.Map;
@@ -18,7 +17,7 @@ import static com.maxbilbow.pw.domain.type.PoliticalLeaning.PLEnum.Right;
 /**
  * Created by Max on 09/01/2016.
  */
-@Entity
+//@Entity
 public class IssueImportance extends AbstractDomain<Long>
 {
 

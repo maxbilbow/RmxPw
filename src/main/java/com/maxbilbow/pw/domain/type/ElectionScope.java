@@ -1,4 +1,4 @@
-package com.maxbilbow.pw.domain;
+package com.maxbilbow.pw.domain.type;
 
 /**
  * Created by Max on 08/01/2016.

@@ -5,13 +5,10 @@ import com.maxbilbow.pw.domain.ElectionResult;
 import com.maxbilbow.pw.domain.Candidate;
 import com.maxbilbow.pw.domain.VoterGroup;
 import com.maxbilbow.pw.framework.ElectionBallot;
-import org.joda.time.DateTime;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.time.Instant;
+import java.util.*;
 
 /**
  * Created by Max on 19/02/2016.
@@ -35,7 +32,7 @@ public class ElectionBallotImpl extends OpinionPollerImpl implements ElectionBal
                     aVoterGroup -> result.addToTotalVotesCast(vote(candidates,aVoterGroup,result)
             ));
 
-    result.setBallotDay(DateTime.now());
+    result.setBallotDay(Date.from(Instant.now()));
     result.setSpoiledBallots(0);
     result.setVoteShare(candidates);
     result.setWinner(candidates);

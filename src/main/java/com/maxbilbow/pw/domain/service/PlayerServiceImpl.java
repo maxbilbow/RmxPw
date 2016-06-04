@@ -13,4 +13,10 @@ import org.springframework.stereotype.Service;
 public class PlayerServiceImpl extends AbstractPwService<Player, Long> implements PlayerService
 {
   private Logger mLogger = Logger.getLogger(getClass());
+
+  @Override
+  public Player createNew()
+  {
+    return new Player();
+  }
 }

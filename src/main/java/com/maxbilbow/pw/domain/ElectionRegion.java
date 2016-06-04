@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * Created by Max on 08/01/2016.
  */
-@Entity
+//@Entity
 public class ElectionRegion extends AbstractDomain<Long>
 {
     private String mRegionName;

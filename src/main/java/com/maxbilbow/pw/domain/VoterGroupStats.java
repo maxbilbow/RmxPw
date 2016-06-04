@@ -2,13 +2,11 @@ package com.maxbilbow.pw.domain;
 
 import com.maxbilbow.pwcommon.domain.AbstractDomain;
 
-import javax.persistence.Entity;
-
 /**
  * Created by Max on 09/01/2016.
  * This takes the place of actual analysed voter data
  */
-@Entity
+//@Entity
 public class VoterGroupStats extends AbstractDomain<Long>
 {
 

@@ -1,19 +1,20 @@
 package com.maxbilbow.pw.domain;
 
+import com.maxbilbow.pw.domain.type.ElectionScope;
 import com.maxbilbow.pwcommon.domain.AbstractDomain;
-import org.joda.time.DateTime;
 
 import javax.persistence.*;
+import java.util.Date;
 import java.util.List;
 
 /**
  * Created by Max on 08/01/2016.
  */
-@Entity
+//@Entity
 public class Election extends AbstractDomain<Long>
 {
 
-  private DateTime         mElectionDay;
+  private Date             mElectionDay;
   private List<Candidate>  mCandidates;
   private ElectionScope    mElectionScope;
   private ElectionRegion   mElectionRegion;
@@ -49,12 +50,12 @@ public class Election extends AbstractDomain<Long>
   }
 
   @Column
-  public DateTime getElectionDay()
+  public Date getElectionDay()
   {
     return mElectionDay;
   }
 
-  public void setElectionDay(DateTime aElectionDay)
+  public void setElectionDay(Date aElectionDay)
   {
     mElectionDay = aElectionDay;
   }

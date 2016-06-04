@@ -1,102 +1,43 @@
 package com.maxbilbow.pw.control;
 
 import com.maxbilbow.pw.domain.User;
-import com.maxbilbow.pw.domain.dao.player.UserRepository;
+import com.maxbilbow.pwcommon.web.controller.AbstractPwController;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
-
-import javax.annotation.Resource;
-import java.util.Arrays;
 
 /**
  * Created by Max on 08/01/2016.
  */
 @Controller
-@SessionAttributes("user")
-public class WelcomeController {
+@RequestMapping("/")
+public class WelcomeController extends AbstractPwController
+{
 
-    private Logger logger = Logger.getLogger(this.getClass());
+  private Logger mLogger = Logger.getLogger(this.getClass());
 
-    private User user;
+  private User user;
 
-    @Resource
-    private UserRepository repository;
+  @Override
+  public String getViewUrl()
+  {
+    return "welcome";
+  }
 
-    @RequestMapping(value = "/",method = RequestMethod.GET)
-    public ModelAndView get(ModelAndView modelAndView)
-    {
-        if (user == null)
-            user = new User();
-        modelAndView.addObject("user",user);
-        modelAndView.setViewName("welcome");
-        return modelAndView;
-    }
+  @RequestMapping(params = "reqType=register", method = RequestMethod.POST)
+  public ModelAndView registerNewUser(@RequestParam("user") User user)
+  {
+    return new ModelAndView("redirect:player");
+  }
 
-    @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public ModelAndView registerNewUser(ModelAndView modelAndView,
-                                        @ModelAttribute User user,
-                                        BindingResult result)
-    {
-        modelAndView.setViewName("reg");
-        modelAndView.addObject("errors",new String[0]);
-        if (result.hasErrors()) {
-            logger.warn(result);
-            modelAndView.addObject("errors",result.getAllErrors());
-            return modelAndView;
-        }
-
-        if (user == null || user.getUsername() == null || user.getPassword() == null) {
-            modelAndView.addObject("errors", Arrays.asList("playerCredentials was null"));
-            return modelAndView;
-        }
-
-
-
-        if (repository.findOne(user.getUsername()) == null)
-            repository.save(this.user = user);
-        else
-            modelAndView.addObject("errors",Arrays.asList("Username " + user.getUsername() + " already exists."));
-
-
-
-
-        return modelAndView;
-    }
-
-    @RequestMapping(value = "/login",method = RequestMethod.POST)
-    public String logIn(ModelAndView modelAndView,
-                                        @ModelAttribute User user,
-                                        BindingResult result)
-    {
-        modelAndView.setViewName("campaign");
-        if (result.hasErrors()) {
-            logger.warn(result);
-            modelAndView.addObject("errors",result.getAllErrors());
-            return "error";
-        }
-
-        if (user == null) {
-            modelAndView.addObject("errors", Arrays.asList("user was null"));
-            return "error";
-        }
-
-
-        user = repository.verifyUser(user.getUsername(), user.getPassword());
-        if (user != null)
-            modelAndView.addObject("loggedIn",true);
-        else
-            modelAndView.addObject("loggedIn",false);
-
-        this.user = user;
-//        dao.save(user);
-
-        return "redirect:/player";
-    }
+  @RequestMapping(params = "reqType=login", method = RequestMethod.POST)
+  public ModelAndView logIn(@RequestParam("username") String aUsername,
+                      @RequestParam("password") String aPassword)
+  {
+    return new ModelAndView("redirect:/player");
+  }
 
 }

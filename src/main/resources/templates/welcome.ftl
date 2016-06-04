@@ -1,11 +1,7 @@
+<#global pageTitle = "Welcome" urlLink="welcome" urlGroup="">
+<#import "/layout/layout.ftl" as layout/>
+<@layout.mainLayout urlLink urlGroup>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
 <p>
     hello, Mr World.
 </p>
@@ -18,7 +14,4 @@
     <input type="submit" value="Log in" formaction="/login">
     <input type="submit" value="Register" formaction="/register">
 </form>
-
-</div>
-</body>
-</html>
+</@layout.mainLayout>

@@ -1,10 +1,10 @@
 package com.maxbilbow.pw.domain;
 
+import com.maxbilbow.pw.domain.type.ElectionScope;
 import com.maxbilbow.pw.framework.Generator;
 import com.maxbilbow.pwcommon.domain.AbstractDomain;
 
 import javax.persistence.Column;
-import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import java.util.ArrayList;
@@ -15,7 +15,7 @@ import java.util.Set;
 /**
  * Created by Max on 08/01/2016.
  */
-@Entity
+//@Entity
 public class Candidate extends AbstractDomain<Long>
 {
 

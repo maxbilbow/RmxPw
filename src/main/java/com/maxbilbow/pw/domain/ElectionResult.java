@@ -2,9 +2,9 @@ package com.maxbilbow.pw.domain;
 
 import click.rmx.util.ObjectInspector;
 import com.maxbilbow.pwcommon.domain.AbstractDomain;
-import org.joda.time.DateTime;
 
 import javax.persistence.*;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -13,12 +13,12 @@ import java.util.Map;
 /**
  * Created by Max on 19/02/2016.
  */
-@Entity
+//@Entity
 public class ElectionResult extends AbstractDomain<Long>
 {
   private Map<Candidate, Integer> mVoteShare;
 
-  private DateTime mBallotDay;
+  private Date mBallotDay;
 
   private Candidate mWinner;
 
@@ -35,7 +35,7 @@ public class ElectionResult extends AbstractDomain<Long>
 
 //  @Type("org.joda.time.DateTime")
   @Column
-  public DateTime getBallotDay()
+  public Date getBallotDay()
   {
     return mBallotDay;
   }
@@ -58,7 +58,7 @@ public class ElectionResult extends AbstractDomain<Long>
     mVoteShare = aVoteShare;
   }
 
-  public void setBallotDay(DateTime aBallotDay)
+  public void setBallotDay(Date aBallotDay)
   {
     mBallotDay = aBallotDay;
   }

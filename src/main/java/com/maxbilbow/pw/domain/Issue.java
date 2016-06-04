@@ -5,8 +5,6 @@ import com.maxbilbow.pwcommon.domain.AbstractDomain;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
 import javax.validation.constraints.NotNull;
 import java.util.Arrays;
 import java.util.List;
@@ -54,8 +52,8 @@ public class Issue extends AbstractDomain<Long> implements PoliticalLeaning
    * A list of general political emotians and how relevant this issue is to those
    * Issues will have % of relevance to certain emotions. This is how electorates decide how they feel about those issues.
    */
-  @OneToOne
-  @JoinColumn
+//  @OneToOne
+//  @JoinColumn
   public IssueImportance getIssueImportance()
   {
     return mIssueImportance;

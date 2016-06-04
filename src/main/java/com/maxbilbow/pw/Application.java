@@ -1,14 +1,12 @@
 package com.maxbilbow.pw;
 
 import click.rmx.web.Browser;
-import com.google.gson.Gson;
 import org.apache.log4j.Logger;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ConfigurableApplicationContext;
-import org.springframework.context.annotation.Bean;
 import org.springframework.core.env.Environment;
 import org.springframework.web.WebApplicationInitializer;
 
@@ -77,12 +75,5 @@ public class Application implements WebApplicationInitializer
       mLogger.error(e);//new FrontendException(e);
     }
     return "N/A";
-  }
-
-  //application wide Gson instance
-  @Bean
-  public Gson Gson()
-  {
-    return new Gson();
   }
 }

@@ -12,7 +12,7 @@ import java.util.Map;
 /**
  * Created by Max on 08/01/2016.
  */
-@Entity
+//@Entity
 public class Campaign extends AbstractDomain<Long>
 {
   private Election        mElection;
